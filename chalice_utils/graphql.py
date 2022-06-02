@@ -70,7 +70,12 @@ def extract_params(request: Request) -> GraphQLParams:
     )
 
 
-def graphql_request(request: Request, *, schema: graphene.Schema) -> Response:
+def graphql_request(
+    request: Request,
+    *,
+    schema: graphene.Schema,
+    logger: Optional[logging.Logger] = None,
+) -> Response:
     try:
         if (query_params := extract_params(request)) and not query_params.source:
             return Response(
@@ -91,7 +96,8 @@ def graphql_request(request: Request, *, schema: graphene.Schema) -> Response:
         return translate_result(res)
     except Exception as e:
         capture_exception(e)
-        logging.getLogger(__name__).exception(e)
+        logger = logger or logging.getLogger(__name__)
+        logger.exception(e)
         return Response(
             {
                 "code": "InternalServerError",
