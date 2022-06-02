@@ -7,8 +7,8 @@ from typing import Callable, Optional
 def _json_serialize_default(o):
     if isinstance(o, (datetime.date, datetime.datetime)):
         return o.isoformat()
-    else:
-        return repr(o)
+
+    return repr(o)
 
 
 class CloudWatchLogFormatter(logging.Formatter):
