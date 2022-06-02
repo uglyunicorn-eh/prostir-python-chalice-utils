@@ -37,8 +37,12 @@ class CloudWatchLogFormatter(logging.Formatter):
         return json.dumps(res, default=self.json_serialize_default)
 
 
-def setup_logging():
-    logger = logging.getLogger("root")
+def setup_logging(
+    logger: Optional[logging.Logger] = None,
+    *,
+    level: int = logging.INFO,
+):
+    logger = logger or logging.getLogger("root")
     for h in logger.handlers:
         h.setFormatter(CloudWatchLogFormatter())
-    logger.setLevel(logging.INFO)
+    logger.setLevel(level)
