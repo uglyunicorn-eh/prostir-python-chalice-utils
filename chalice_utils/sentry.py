@@ -7,7 +7,10 @@ from sentry_sdk.integrations.aws_lambda import AwsLambdaIntegration
 _sentry_setup = False
 
 
-def setup_sentry(dsn: Optional[str]):
+def setup_sentry(
+    *,
+    dsn: Optional[str],
+):
     global _sentry_setup
     if _sentry_setup:
         return
