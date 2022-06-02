@@ -1,7 +1,7 @@
 from typing import Optional
 
 import sentry_sdk
-from sentry_sdk.integrations.aws_lambda import AwsLambdaIntegration
+from sentry_sdk.integrations.chalice import ChaliceIntegration
 
 
 _sentry_setup = False
@@ -20,5 +20,5 @@ def setup_sentry(
     if dsn:
         sentry_sdk.init(
             dsn=dsn,
-            integrations=[AwsLambdaIntegration()],
+            integrations=[ChaliceIntegration()],
         )
