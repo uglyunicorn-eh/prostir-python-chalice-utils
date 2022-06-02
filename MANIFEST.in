@@ -1,0 +1,6 @@
+include *.txt
+include VERSION
+exclude **/tests/*
+exclude .env
+exclude env
+exclude venv
