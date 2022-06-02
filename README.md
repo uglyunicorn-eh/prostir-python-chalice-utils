@@ -4,32 +4,33 @@
 
 ## Requirements
 
-* Python 3.9
-* [chalice](https://github.com/aws/chalice)
+- Python 3.9
+- [chalice](https://github.com/aws/chalice)
 
 ## Features
 
-* [Graphene](https://graphene-python.org) GraphQL Server support
-* [AWS CloudWatch](https://aws.amazon.com/cloudwatch/) logs formatter
-* [Sentry](https://sentry.io/) integration
+- [Graphene](https://graphene-python.org) GraphQL Server support
+- [AWS CloudWatch](https://aws.amazon.com/cloudwatch/) logs formatter
+- [Sentry](https://sentry.io/) integration
 
 ## Development
 
+### Bootstrap
+
+- run `make bootstrap`
+
 ### Testing
 
-* create a virtual environment `.env` and activate it
-* install testing dependencies: `pip install -e ".[develop]"`
-* run `make test`
+- run `make test`
 
 ### Building docs
 
-* install testing dependencies: `pip install -e ".[docs]"`
-* run `make docs`
+- run `make docs`
 
 ## Change Log
 
 **Version 0.0.1**
 
-* Basic graphene support
-* Basic CloudWatch logs formatter
-* Sentry integration
+- Basic graphene support
+- Basic CloudWatch logs formatter
+- Sentry integration

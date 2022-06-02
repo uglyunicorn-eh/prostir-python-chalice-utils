@@ -26,7 +26,8 @@ setuptools.setup(
         ],
         "docs": [
             'sphinx',
-            'sphinx-furo-theme',
+            'sphinx-rtd-theme',
+            'myst-parser',
         ],
     },
 )

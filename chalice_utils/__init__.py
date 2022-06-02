@@ -1,6 +1,6 @@
 from typing import Optional
-from chalicelib.utils.logging import setup_logging
-from chalicelib.utils.sentry import setup_sentry
+from chalice_utils.logging import setup_logging
+from chalice_utils.sentry import setup_sentry
 
 
 def setup_chalice(

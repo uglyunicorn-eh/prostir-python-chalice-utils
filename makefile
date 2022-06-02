@@ -2,14 +2,24 @@ ENV ?= .env
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 VIRTUAL_ENV := ${ROOT_DIR}/${ENV}
 SRC=chalice_utils
+PYTHON_VERSION=3.9
 
-.PHONY: build package cleanup build_all lint test all docs clean_dist
+.PHONY: build package cleanup build_all lint test all docs clean_dist bootstrap
+
+bootstrap: ${ENV}
+
+${ENV}:
+	virtualenv -p python${PYTHON_VERSION} --system-site-packages $@
+	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -U pip
+	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -U chalice
+	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -e ".[develop]"
+	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -e ".[docs]"
 
 build:
-	python3 setup.py build_ext -t /tmp/ -b build
+	@PATH="${VIRTUAL_ENV}/bin" python3 setup.py build_ext -t /tmp/ -b build
 
-package:
-	python setup.py sdist
+package: build
+	@PATH="${VIRTUAL_ENV}/bin" python setup.py sdist
 
 cleanup:
 	- rm -rf build/
@@ -30,5 +40,5 @@ test: lint
 all: test build_all package
 
 docs:
-	sphinx-apidoc --no-headings --templatedir=docs/templates -f -o docs/source ${SRC}
-	$(MAKE) -C docs html
+	@PATH="${VIRTUAL_ENV}/bin" sphinx-apidoc --no-headings --templatedir=docs/templates -f -o docs/source ${SRC}
+	@SPHINXBUILD="${VIRTUAL_ENV}/bin/sphinx-build" $(MAKE) -C docs html

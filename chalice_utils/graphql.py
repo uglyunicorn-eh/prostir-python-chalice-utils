@@ -2,15 +2,15 @@ import asyncio
 import dataclasses
 import json
 import logging
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, cast
 
 from chalice.app import Response, Request
 import graphene
 from graphql import ExecutionResult
 from sentry_sdk import capture_exception
 
-from chalicelib.utils.json import handle_extra_types
-from chalicelib.utils.request import parse_body
+from chalice_utils.json import handle_extra_types
+from chalice_utils.request import parse_body
 
 
 class CustomResponse(Response):
@@ -64,8 +64,8 @@ def extract_params(request: Request) -> GraphQLParams:
     query_data = request.query_params or {}
 
     return GraphQLParams(
-        source=data.get("query") or query_data.get("query"),
-        variable_values=data.get("variables") or query_data.get("variables"),
+        source=data.get("query") or query_data.get("query") or "",
+        variable_values=cast(Dict[str, Any], data.get("variables") or query_data.get("variables") or {}),
         operation_name=data.get("operationName") or query_data.get("operationName"),
     )
 
