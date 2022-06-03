@@ -15,7 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(exclude=["*tests*"]),
     install_requires=[
         "graphene>=3.0",
-        "sentry-sdk[chalice]",
+        "sentry-sdk",  # do not include [chalice], that would add boto3 to the final package due to dependecies
     ],
     extras_require={
         "develop": [

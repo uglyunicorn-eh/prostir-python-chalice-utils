@@ -1,7 +1,6 @@
 from typing import Optional
 
 import sentry_sdk
-from sentry_sdk.integrations.chalice import ChaliceIntegration
 
 
 _sentry_setup = False
@@ -11,6 +10,8 @@ def setup_sentry(
     *,
     dsn: Optional[str],
 ):
+    from sentry_sdk.integrations.chalice import ChaliceIntegration
+
     global _sentry_setup
     if _sentry_setup:
         return
