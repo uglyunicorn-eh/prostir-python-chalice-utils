@@ -1,5 +1,6 @@
 import asyncio
 import dataclasses
+import decimal
 import json
 import logging
 from typing import Any, Dict, Optional, cast
@@ -7,10 +8,18 @@ from typing import Any, Dict, Optional, cast
 from chalice.app import Response, Request
 import graphene
 from graphql import ExecutionResult
+from graphql.error import GraphQLError
 from sentry_sdk import capture_exception
 
-from chalice_utils.json import handle_extra_types
-from chalice_utils.request import parse_body
+
+def handle_extra_types(obj: Any) -> Any:
+    if isinstance(obj, GraphQLError):
+        return obj.formatted
+
+    if isinstance(obj, decimal.Decimal):
+        return f"{obj:.2f}"
+
+    raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
 
 
 class CustomResponse(Response):
@@ -57,6 +66,18 @@ class GraphQLParams:
     source: str
     variable_values: Optional[Dict[str, Any]]
     operation_name: Optional[str]
+
+
+def parse_body(request: Request) -> dict[str, Any]:
+    content_type = request.headers.get("Content-Type")
+
+    if content_type == "application/graphql":
+        return {"query": request.raw_body}
+
+    try:
+        return json.loads(request.raw_body) if request.raw_body else {}
+    except ValueError:
+        return {}
 
 
 def extract_params(request: Request) -> GraphQLParams:
