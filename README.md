@@ -34,3 +34,4 @@
 - Basic graphene support
 - Basic CloudWatch logs formatter
 - Sentry integration
+- AWS Secret Manager helpers
