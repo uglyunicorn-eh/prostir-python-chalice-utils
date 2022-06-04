@@ -20,6 +20,7 @@ setuptools.setup(
     ],
     extras_require={
         "develop": [
+            "black",
             "coverage",
             "pylint",
             "pytest-cov",
