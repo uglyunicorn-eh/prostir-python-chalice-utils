@@ -1,5 +1,6 @@
 include *.txt
 include VERSION
+include PACKAGE
 exclude **/tests/*
 exclude .env
 exclude env
