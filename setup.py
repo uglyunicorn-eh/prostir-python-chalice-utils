@@ -1,18 +1,25 @@
 import setuptools
 
-with open("VERSION", "r", encoding="utf-8") as f:
-    VERSION = f.read().strip()
+
+def read_from_file(filename: str) -> str:
+    with open(filename, "r", encoding="utf-8") as f:
+        return f.read().strip()
+
+
+VERSION = read_from_file("VERSION")
+PACKAGE = read_from_file("PACKAGE")
+NAMESPACE = "prostir"
 
 cmdclass = {}
 
 setuptools.setup(
-    name="prostir-chalice-utils",
-    url="https://github.com/uglyunicorn-eh/prostir-chalice-utils",
+    name=f"prostir-{PACKAGE}",
+    url=f"https://github.com/uglyunicorn-eh/prostir-{PACKAGE}",
     maintainer="Ugly Unicorn",
     maintainer_email="info@uglyunicorn.ca",
     version=VERSION,
     cmdclass=cmdclass,
-    namespace="prostir",
+    namespace=NAMESPACE,
     packages=setuptools.find_namespace_packages(exclude=["*tests*"]),
     install_requires=[
         "graphene>=3.0",
