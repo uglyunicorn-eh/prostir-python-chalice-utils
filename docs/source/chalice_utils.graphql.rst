@@ -1,31 +1,23 @@
-chalice\_utils package
-======================
-
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   chalice_utils.graphql
+chalice\_utils.graphql package
+==============================
 
 Submodules
 ----------
 
 
-.. automodule:: chalice_utils.logging
+.. automodule:: chalice_utils.graphql.request
    :members:
    :undoc-members:
    :show-inheritance:
 
 
-.. automodule:: chalice_utils.secrets
+.. automodule:: chalice_utils.graphql.response
    :members:
    :undoc-members:
    :show-inheritance:
 
 
-.. automodule:: chalice_utils.sentry
+.. automodule:: chalice_utils.graphql.utils
    :members:
    :undoc-members:
    :show-inheritance:
@@ -33,7 +25,7 @@ Submodules
 Module contents
 ---------------
 
-.. automodule:: chalice_utils
+.. automodule:: chalice_utils.graphql
    :members:
    :undoc-members:
    :show-inheritance:

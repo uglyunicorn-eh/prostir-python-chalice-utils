@@ -1,11 +1,11 @@
 from unittest import TestCase, mock
 
 from graphql import ExecutionResult, GraphQLError
-from prostir.chalice_utils.graphql import translate_result
+from prostir.chalice_utils.graphql.utils import translate_result
 
 
 class TestTranslateResult(TestCase):
-    @mock.patch("prostir.chalice_utils.graphql.CustomResponse")
+    @mock.patch("prostir.chalice_utils.graphql.utils.CustomResponse")
     def test_translate_result_error(self, CustomResponse):
         res = ExecutionResult(
             data=None,
@@ -24,7 +24,7 @@ class TestTranslateResult(TestCase):
             status_code=400,
         )
 
-    @mock.patch("prostir.chalice_utils.graphql.CustomResponse")
+    @mock.patch("prostir.chalice_utils.graphql.utils.CustomResponse")
     def test_translate_result_success(self, CustomResponse):
         res = ExecutionResult(
             data={
