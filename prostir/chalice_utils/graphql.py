@@ -70,7 +70,8 @@ class GraphQLParams:
 
 def parse_body(request: Request) -> dict[str, Any]:
     if request.headers.get("Content-Type") == "application/graphql":
-        return {"query": request.raw_body}
+        query = (request.raw_body or b"").decode()
+        return {"query": query}
 
     try:
         return json.loads(request.raw_body) if request.raw_body else {}
