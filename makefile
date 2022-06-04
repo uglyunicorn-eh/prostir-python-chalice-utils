@@ -1,7 +1,7 @@
 ENV ?= .env
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 VIRTUAL_ENV := ${ROOT_DIR}/${ENV}
-SRC=chalice_utils
+SRC=prostir/chalice_utils
 PYTHON_VERSION=3.9
 
 .PHONY: build package cleanup build_all lint test all docs clean_dist bootstrap
@@ -37,8 +37,8 @@ test: lint
 	@PATH="${VIRTUAL_ENV}/bin" python -m coverage erase
 	@PATH="${VIRTUAL_ENV}/bin" python -m coverage run -m pytest --cov=${SRC} --cov-report term-missing:skip-covered --cov-report xml
 
-all: test build_all package
+all: cleanup test docs build_all package
 
 docs:
-	@PATH="${VIRTUAL_ENV}/bin" sphinx-apidoc --no-headings --templatedir=docs/templates -f -o docs/source ${SRC}
+	@PATH="${VIRTUAL_ENV}/bin" sphinx-apidoc --force --no-headings --templatedir=docs/templates -f -o docs/source ${SRC}
 	@SPHINXBUILD="${VIRTUAL_ENV}/bin/sphinx-build" $(MAKE) -C docs html

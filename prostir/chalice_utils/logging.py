@@ -1,7 +1,8 @@
 import datetime
 import json
 import logging
-from typing import Callable, Optional
+from typing import Optional
+from collections.abc import Callable
 
 
 def _json_serialize_default(o):

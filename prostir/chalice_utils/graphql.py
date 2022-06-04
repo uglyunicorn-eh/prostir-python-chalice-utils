@@ -3,7 +3,7 @@ import dataclasses
 import decimal
 import json
 import logging
-from typing import Any, Dict, Optional, cast
+from typing import Any, Optional, cast
 
 from chalice.app import Response, Request
 import graphene
@@ -64,14 +64,12 @@ def translate_result(res: ExecutionResult) -> Response:
 @dataclasses.dataclass(frozen=True)
 class GraphQLParams:
     source: str
-    variable_values: Optional[Dict[str, Any]]
+    variable_values: Optional[dict[str, Any]]
     operation_name: Optional[str]
 
 
 def parse_body(request: Request) -> dict[str, Any]:
-    content_type = request.headers.get("Content-Type")
-
-    if content_type == "application/graphql":
+    if request.headers.get("Content-Type") == "application/graphql":
         return {"query": request.raw_body}
 
     try:
@@ -86,7 +84,7 @@ def extract_params(request: Request) -> GraphQLParams:
 
     return GraphQLParams(
         source=data.get("query") or query_data.get("query") or "",
-        variable_values=cast(Dict[str, Any], data.get("variables") or query_data.get("variables") or {}),
+        variable_values=cast(dict[str, Any], data.get("variables") or query_data.get("variables") or {}),
         operation_name=data.get("operationName") or query_data.get("operationName"),
     )
 
@@ -115,7 +113,7 @@ def graphql_request(
             ),
         )
         return translate_result(res)
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-except
         capture_exception(e)
         logger = logger or logging.getLogger(__name__)
         logger.exception(e)

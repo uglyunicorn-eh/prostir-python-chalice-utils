@@ -10,9 +10,9 @@ def setup_sentry(
     *,
     dsn: Optional[str],
 ):
-    from sentry_sdk.integrations.chalice import ChaliceIntegration
+    from sentry_sdk.integrations.chalice import ChaliceIntegration  # pylint: disable=import-outside-toplevel
 
-    global _sentry_setup
+    global _sentry_setup  # pylint: disable=global-statement
     if _sentry_setup:
         return
 

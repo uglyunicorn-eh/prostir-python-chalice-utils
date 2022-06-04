@@ -1,6 +1,6 @@
 import base64
 import json
-from typing import Any, Dict
+from typing import Any
 
 import boto3
 
@@ -9,7 +9,7 @@ def get_secrets_aws(
     secret_name: str,
     *,
     region_name: str = "us-west-2",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     session = boto3.session.Session()  # type: ignore
     client = session.client(service_name="secretsmanager", region_name=region_name)
 

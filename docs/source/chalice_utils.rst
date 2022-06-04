@@ -11,19 +11,13 @@ Submodules
    :show-inheritance:
 
 
-.. automodule:: chalice_utils.json
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
 .. automodule:: chalice_utils.logging
    :members:
    :undoc-members:
    :show-inheritance:
 
 
-.. automodule:: chalice_utils.request
+.. automodule:: chalice_utils.secrets
    :members:
    :undoc-members:
    :show-inheritance:
