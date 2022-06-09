@@ -9,6 +9,8 @@ _sentry_setup = False
 def setup_sentry(
     *,
     dsn: Optional[str],
+    release: Optional[str] = None,
+    environment: Optional[str] = None,
 ):
     from sentry_sdk.integrations.chalice import ChaliceIntegration  # pylint: disable=import-outside-toplevel
 
@@ -22,4 +24,6 @@ def setup_sentry(
         sentry_sdk.init(
             dsn=dsn,
             integrations=[ChaliceIntegration()],
+            release=release,
+            environment=environment,
         )

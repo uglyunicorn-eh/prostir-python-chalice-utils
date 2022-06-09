@@ -1,6 +1,6 @@
 # Change Log
 
-**Version 0.0.1**
+**Version 0.0.x**
 
 - Basic graphene support
 - Basic CloudWatch logs formatter
