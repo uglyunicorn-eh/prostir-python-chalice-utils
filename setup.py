@@ -33,6 +33,7 @@ setuptools.setup(
             "pytest-cov==3.0.0",
             "pytest==7.1.2",
             "chalice==1.27.1",
+            "boto3==1.24.1",
         ],
         "docs": [
             "sphinx",
