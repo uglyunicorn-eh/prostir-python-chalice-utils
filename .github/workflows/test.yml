@@ -1,0 +1,18 @@
+name: Run Tests
+
+on:
+  push:
+    paths:
+      - '**/*.py'
+      - 'requirements*.txt'
+
+jobs:
+  analize:
+    uses: uglyunicorn-eh/prostir-github-tools/.github/workflows/python-pylint-pkg.yml@main
+    secrets: inherit
+
+  test:
+    uses: uglyunicorn-eh/prostir-github-tools/.github/workflows/python-pytest-pkg.yml@main
+    secrets: inherit
+    with:
+      upload-codecov: true

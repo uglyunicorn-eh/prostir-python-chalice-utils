@@ -1,7 +1,7 @@
 ENV ?= .env
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 VIRTUAL_ENV := ${ROOT_DIR}/${ENV}
-SRC=prostir/chalice_utils
+SRC=prostir
 PYTHON_VERSION=3.9
 
 .PHONY: build package cleanup build_all lint test all docs clean_dist bootstrap
@@ -11,7 +11,6 @@ bootstrap: ${ENV}
 ${ENV}:
 	virtualenv -p python${PYTHON_VERSION} --system-site-packages $@
 	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -U pip
-	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -U chalice
 	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -e ".[develop]"
 	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -e ".[docs]"
 
@@ -36,6 +35,9 @@ lint:
 test: lint
 	@PATH="${VIRTUAL_ENV}/bin" python -m coverage erase
 	@PATH="${VIRTUAL_ENV}/bin" python -m coverage run -m pytest --cov=${SRC} --cov-report term-missing:skip-covered --cov-report xml
+
+test-only:
+	@PATH="${VIRTUAL_ENV}/bin" python -m pytest
 
 all: cleanup test docs build_all package
 

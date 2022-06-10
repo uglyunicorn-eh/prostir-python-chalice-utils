@@ -28,10 +28,11 @@ setuptools.setup(
     extras_require={
         "develop": [
             "black",
-            "coverage",
-            "pylint",
-            "pytest-cov",
-            "pytest",
+            "coverage==6.4.1",
+            "pylint==2.14.0",
+            "pytest-cov==3.0.0",
+            "pytest==7.1.2",
+            "chalice==1.27.1",
         ],
         "docs": [
             "sphinx",
