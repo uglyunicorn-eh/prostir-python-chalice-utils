@@ -1,7 +1,7 @@
 import asyncio
 import dataclasses
 import logging
-from typing import Optional, Any, Type
+from typing import Optional, Any
 
 from chalice.app import Response, Request
 import graphene
@@ -18,7 +18,7 @@ def graphql_request(
     schema: graphene.Schema,
     middleware: Optional[Middleware] = None,
     root_value: Optional[Any] = None,
-    execution_context_class: Optional[Type[ExecutionContext]] = ProstirExecutionContext,
+    execution_context_class: Optional[type[ExecutionContext]] = ProstirExecutionContext,
     logger: Optional[logging.Logger] = None,
 ) -> Response:
     try:
