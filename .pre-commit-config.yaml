@@ -1,0 +1,23 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.3.0
+  hooks:
+  - id: trailing-whitespace
+  - id: end-of-file-fixer
+  - id: check-merge-conflict
+- repo: local
+  hooks:
+    - id: pylint
+      name: pylint
+      entry: ./.env/bin/pylint
+      language: system
+      types: [python]
+      args:
+        [
+          "-rn", # Only display messages
+          "-sn", # Don't display the score
+          "--rcfile=.pylintrc", # Link to your config file
+          # "--load-plugins=pylint.extensions.docparams", # Load an extension
+        ]
