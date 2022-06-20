@@ -16,6 +16,7 @@ def graphql_request(
     request: Request,
     *,
     schema: graphene.Schema,
+    context: Any,
     middleware: Optional[Middleware] = None,
     root_value: Optional[Any] = None,
     execution_context_class: Optional[type[ExecutionContext]] = ProstirExecutionContext,
@@ -36,6 +37,7 @@ def graphql_request(
         res: ExecutionResult = loop.run_until_complete(
             schema.execute_async(
                 **dataclasses.asdict(query_params),
+                context=context,
                 middleware=middleware,
                 root_value=root_value,
                 execution_context_class=execution_context_class,
