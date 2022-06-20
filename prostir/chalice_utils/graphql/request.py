@@ -38,7 +38,7 @@ def graphql_request(
                 **dataclasses.asdict(query_params),
                 middleware=middleware,
                 root_value=root_value,
-                execution_context_clas=execution_context_class,
+                execution_context_class=execution_context_class,
             ),
         )
         return translate_result(res)
