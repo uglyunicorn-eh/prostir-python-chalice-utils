@@ -6,13 +6,17 @@ PYTHON_VERSION=3.9
 
 .PHONY: build package cleanup build_all lint test all docs clean_dist bootstrap
 
-bootstrap: ${ENV}
+bootstrap: ${ENV} .git/hooks/pre-commit
 
 ${ENV}:
 	virtualenv -p python${PYTHON_VERSION} --system-site-packages $@
 	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -U pip
 	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -e ".[develop]"
 	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -e ".[docs]"
+	@PATH="${VIRTUAL_ENV}/bin" python -m pip install --ignore-installed pylint
+
+.git/hooks/pre-commit:
+	pre-commit install
 
 build:
 	@PATH="${VIRTUAL_ENV}/bin" python3 setup.py build_ext -t /tmp/ -b build

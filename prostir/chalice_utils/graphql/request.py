@@ -1,20 +1,24 @@
 import asyncio
 import dataclasses
 import logging
-from typing import Optional
+from typing import Optional, Any
 
 from chalice.app import Response, Request
 import graphene
-from graphql import ExecutionResult
+from graphql import ExecutionResult, Middleware, ExecutionContext
 from sentry_sdk import capture_exception
 
 from .utils import extract_params, translate_result
+from .execute import ProstirExecutionContext
 
 
 def graphql_request(
     request: Request,
     *,
     schema: graphene.Schema,
+    middleware: Optional[Middleware] = None,
+    root_value: Optional[Any] = None,
+    execution_context_class: Optional[type[ExecutionContext]] = ProstirExecutionContext,
     logger: Optional[logging.Logger] = None,
 ) -> Response:
     try:
@@ -32,6 +36,9 @@ def graphql_request(
         res: ExecutionResult = loop.run_until_complete(
             schema.execute_async(
                 **dataclasses.asdict(query_params),
+                middleware=middleware,
+                root_value=root_value,
+                execution_context_clas=execution_context_class,
             ),
         )
         return translate_result(res)
