@@ -16,7 +16,7 @@ def graphql_request(
     request: Request,
     *,
     schema: graphene.Schema,
-    context: Any,
+    context: Optional[Any] = None,
     middleware: Optional[Middleware] = None,
     root_value: Optional[Any] = None,
     execution_context_class: Optional[type[ExecutionContext]] = ProstirExecutionContext,
