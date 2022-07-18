@@ -17,6 +17,8 @@ setuptools.setup(
     url=f"https://github.com/uglyunicorn-eh/prostir-{PACKAGE}",
     maintainer="Ugly Unicorn",
     maintainer_email="info@uglyunicorn.ca",
+    license="MIT License",
+    description="Python Utils for AWS Chalice",
     version=VERSION,
     cmdclass=cmdclass,
     namespace=NAMESPACE,

@@ -10,6 +10,8 @@ bootstrap: ${ENV} .git/hooks/pre-commit
 
 ${ENV}:
 	virtualenv -p python${PYTHON_VERSION} --system-site-packages $@
+	export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $(AWS_CODEARTIFACTS_DOMAIN) --domain-owner $(AWS_CODEARTIFACTS_DOMAIN_OWNER) --query authorizationToken --output text --profie $(PROFILE)`
+	$(PYTHON) -m pip config set global.extra-index-url https://aws:$(CODEARTIFACT_AUTH_TOKEN)@$(AWS_CODEARTIFACTS_DOMAIN)-$(AWS_CODEARTIFACTS_DOMAIN_OWNER).d.codeartifact.us-west-2.amazonaws.com/pypi/$(AWS_CODEARTIFACTS_REPOSITORY)/simple/ --site
 	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -U pip
 	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -e ".[develop]"
 	@PATH="${VIRTUAL_ENV}/bin" python -m pip install -e ".[docs]"

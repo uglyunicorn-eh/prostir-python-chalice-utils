@@ -1,6 +1,7 @@
 name: Run Tests
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - '**/*.py'
@@ -10,12 +11,9 @@ jobs:
   analize:
     uses: uglyunicorn-eh/prostir-github-tools/.github/workflows/python-pylint-pkg.yml@main
     secrets: inherit
-    with:
-      private-repo: false
 
   test:
     uses: uglyunicorn-eh/prostir-github-tools/.github/workflows/python-pytest-pkg.yml@main
     secrets: inherit
     with:
       upload-codecov: true
-      private-repo: false

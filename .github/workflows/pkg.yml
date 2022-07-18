@@ -1,0 +1,21 @@
+name: Publish to AWS CodeArtifact
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'VERSION'
+
+jobs:
+  test:
+    uses: uglyunicorn-eh/prostir-github-tools/.github/workflows/python-pytest-pkg.yml@main
+    secrets: inherit
+
+  build:
+    uses: uglyunicorn-eh/prostir-github-tools/.github/workflows/python-pkg.yml@main
+    secrets: inherit
+    with:
+      private-repo: true
+    needs: test
